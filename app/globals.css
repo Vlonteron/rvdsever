@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #3b82f6;
+  --primary-lighter: #93c5fd;
+  --primary-lightest: #dbeafe;
+  --primary-bg: #eff6ff;
+  --primary-bg-light: #dbeafe;
+  --primary-bg-lighter: #bfdbfe;
+  --primary-gradient-from: #1e3a8a;
+  --primary-gradient-via: #1e40af;
+  --primary-gradient-to: #2563eb;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-light: var(--primary-light);
+  --color-primary-lighter: var(--primary-lighter);
+  --color-primary-lightest: var(--primary-lightest);
+  --color-primary-bg: var(--primary-bg);
+  --color-primary-bg-light: var(--primary-bg-light);
+  --color-primary-bg-lighter: var(--primary-bg-lighter);
+  --font-sans: var(--font-inter);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Swiper custom styles */
+.swiper-pagination {
+  bottom: 30px !important;
+}
+
+.swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  background: white !important;
+  opacity: 0.5 !important;
+  transition: opacity 0.3s ease !important;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1 !important;
+  background: white !important;
+}
+
+/* Smooth scroll */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
