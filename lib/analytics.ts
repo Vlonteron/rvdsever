@@ -201,14 +201,12 @@ export const navigationEvents = {
   galleryView: () =>
     trackEvent({
       action: 'gallery_view',
-      category: 'Navigation',
       category: 'Gallery',
     }),
 
   supplierView: () =>
     trackEvent({
       action: 'supplier_view',
-      category: 'Navigation',
       category: 'Suppliers',
     }),
 };
