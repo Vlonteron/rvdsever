@@ -27,14 +27,25 @@ export default function Contact() {
     setIsSubmitting(true);
     setSubmitStatus('idle');
     
-    // Placeholder for form submission
-    // In the future, this can be connected to EmailJS, Formspree, or a backend API
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log('Form data:', data);
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Помилка відправки');
+      }
+
       setSubmitStatus('success');
       reset();
     } catch (error) {
+      console.error('Ошибка отправки формы:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
