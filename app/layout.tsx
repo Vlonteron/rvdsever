@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { defaultMetadata } from "@/lib/seo";
 import StructuredData from "@/components/SEO/StructuredData";
+
+const WIDGET_SCRIPT_URL = "https://widget.lonteron.dev/widget/pg1Qci2wb8w";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -26,6 +29,10 @@ export default function RootLayout({
         className={`${inter.variable} font-sans antialiased`}
       >
         {children}
+        <Script
+          src={WIDGET_SCRIPT_URL}
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
