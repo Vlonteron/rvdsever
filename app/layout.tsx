@@ -5,7 +5,7 @@ import "./globals.css";
 import { defaultMetadata } from "@/lib/seo";
 import StructuredData from "@/components/SEO/StructuredData";
 
-const WIDGET_SCRIPT_URL = "https://widget.lonteron.dev/widget/pg1Qci2wb8w";
+const WIDGET_SCRIPT_URL = "https://widget.vamera.ai/widget/pg1Qci2wb8w";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
