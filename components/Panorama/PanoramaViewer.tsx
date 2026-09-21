@@ -61,11 +61,6 @@ export default function PanoramaViewer({
         className={`relative group bg-gray-900 overflow-hidden border border-gray-200/80 ${
           isCompact ? 'rounded-2xl shadow-xl' : 'rounded-3xl shadow-2xl'
         } ${heightClass} ${className}`}
-        onMouseLeave={() => {
-          if (!autoInteractive) {
-            setIsInteractive(false);
-          }
-        }}
       >
         {/* Loading Spinner / Skeleton */}
         {isLoading && (
@@ -77,32 +72,34 @@ export default function PanoramaViewer({
           </div>
         )}
 
-        {/* Google Street View Iframe Player */}
+        {/* 360 Panorama Iframe Player */}
         <iframe
           src={config.embedUrl}
           title={title || config.title}
-          className="w-full h-full border-0"
+          className={`w-full h-full border-0 transition-opacity duration-300 ${
+            isLoading ? 'opacity-0' : 'opacity-100'
+          }`}
+          style={{ pointerEvents: isInteractive ? 'auto' : 'none' }}
           allowFullScreen
           loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
           onLoad={() => setIsLoading(false)}
         />
 
         {/* Top Control Bar */}
         <div className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between pointer-events-none">
-          <div className="flex items-center space-x-2 bg-black/60 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium border border-white/10 shadow-lg pointer-events-auto">
+          <div className="flex items-center space-x-2 bg-black/65 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium border border-white/10 shadow-lg pointer-events-auto">
             <span className="flex h-2.5 w-2.5 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500" />
             </span>
-            <span>360° Google Street View</span>
+            <span>360° Віртуальний огляд</span>
           </div>
 
           <div className="flex items-center space-x-2 pointer-events-auto">
             {/* Fullscreen Button */}
             <button
               onClick={() => setIsFullscreen(true)}
-              className="bg-black/60 hover:bg-black/80 backdrop-blur-md text-white p-2 sm:px-3 sm:py-2 rounded-xl text-xs sm:text-sm font-medium border border-white/10 shadow-lg transition-all hover:scale-105 active:scale-95 flex items-center space-x-1.5 cursor-pointer"
+              className="bg-black/65 hover:bg-black/85 backdrop-blur-md text-white p-2 sm:px-3 sm:py-2 rounded-xl text-xs sm:text-sm font-medium border border-white/10 shadow-lg transition-all hover:scale-105 active:scale-95 flex items-center space-x-1.5 cursor-pointer"
               title="Розгорнути на весь екран"
               aria-label="Розгорнути на весь екран"
             >
@@ -130,16 +127,13 @@ export default function PanoramaViewer({
 
         {/* Scroll Protection Overlay (Click to interact) */}
         {!isInteractive && !autoInteractive && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          <div
             onClick={() => setIsInteractive(true)}
-            className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/35 hover:bg-black/25 backdrop-blur-[1px] cursor-pointer transition-all p-4 text-center group/overlay"
+            className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/40 hover:bg-black/25 backdrop-blur-[2px] cursor-pointer transition-all p-4 text-center group/overlay"
           >
-            <div className="bg-black/75 backdrop-blur-md text-white px-6 py-4 rounded-2xl shadow-2xl border border-white/20 transform group-hover/overlay:scale-105 transition-all flex flex-col items-center space-y-2 max-w-sm">
+            <div className="bg-black/80 backdrop-blur-md text-white px-6 py-4 rounded-2xl shadow-2xl border border-white/20 transform group-hover/overlay:scale-105 transition-all flex flex-col items-center space-y-2 max-w-sm">
               <div className="w-12 h-12 rounded-full bg-blue-600/30 flex items-center justify-center text-blue-400">
-                <svg className="w-7 h-7 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-7 h-7 animate-spin" style={{ animationDuration: '4s' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
               </div>
@@ -147,24 +141,21 @@ export default function PanoramaViewer({
                 Клікніть для огляду 360°
               </p>
               <p className="text-xs text-gray-300">
-                Обертайте та переміщуйтесь простором компанії
+                Обертайте та наближайте простір виробництва
               </p>
             </div>
-          </motion.div>
+          </div>
         )}
 
-        {/* Bottom Interactive Notice & Re-lock Button */}
+        {/* Bottom Lock Button when interactive */}
         {isInteractive && !autoInteractive && (
           <div className="absolute bottom-4 right-4 z-20 pointer-events-auto">
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsInteractive(false);
-              }}
-              className="bg-black/60 hover:bg-black/80 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-lg border border-white/10 shadow-md transition-colors flex items-center space-x-1 cursor-pointer"
+              onClick={() => setIsInteractive(false)}
+              className="bg-black/70 hover:bg-black/90 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-lg border border-white/10 shadow-md transition-colors flex items-center space-x-1 cursor-pointer"
               title="Заблокувати скрол"
             >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
               <span>Закріпити скрол</span>
@@ -193,7 +184,7 @@ export default function PanoramaViewer({
             className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex flex-col"
           >
             {/* Modal Header */}
-            <div className="flex items-center justify-between px-6 py-4 bg-black/70 border-b border-white/10 text-white">
+            <div className="flex items-center justify-between px-6 py-4 bg-black/80 border-b border-white/10 text-white">
               <div className="flex items-center space-x-3">
                 <div className="flex h-3 w-3 relative">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
@@ -219,7 +210,7 @@ export default function PanoramaViewer({
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
-                  <span>Відкрити в Google</span>
+                  <span>Відкрити в Google Maps</span>
                 </a>
 
                 <button

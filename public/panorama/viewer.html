@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>360° Panorama Viewer</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #0b0f19;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    #panorama {
+      width: 100%;
+      height: 100%;
+    }
+    /* Custom Pannellum Styling */
+    .pnlm-load-box {
+      background-color: rgba(15, 23, 42, 0.85) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-radius: 12px !important;
+      padding: 16px 24px !important;
+    }
+    .pnlm-lmsg {
+      color: #f8fafc !important;
+      font-size: 14px !important;
+    }
+    .pnlm-load-button {
+      display: none !important;
+    }
+    .pnlm-compass {
+      display: none !important;
+    }
+    .pnlm-control {
+      background-color: rgba(15, 23, 42, 0.75) !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      border-radius: 8px !important;
+      backdrop-filter: blur(8px);
+    }
+  </style>
+</head>
+<body>
+  <div id="panorama"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+  <script>
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var imageUrl = params.get('image');
+
+      if (!imageUrl) {
+        document.body.innerHTML = '<div style="color:white;display:flex;align-items:center;justify-content:center;height:100%;font-size:14px;">Зображення не знайдено</div>';
+        return;
+      }
+
+      try {
+        var viewer = pannellum.viewer('panorama', {
+          type: 'equirectangular',
+          panorama: imageUrl,
+          autoLoad: true,
+          autoRotate: -2,
+          autoRotateInactivityDelay: 3000,
+          showZoomCtrl: true,
+          showFullscreenCtrl: false,
+          mouseZoom: false,
+          hfov: 100,
+          minHfov: 50,
+          maxHfov: 120,
+          friction: 0.15,
+          strings: {
+            loadButtonLabel: "Натисніть для завантаження",
+            loadingLabel: "Завантаження 3D-панорами...",
+            bylineLabel: "",
+            noPanoramaError: "Панорама не знайдена.",
+            fileAccessError: "Не вдалося завантажити файл.",
+            genericError: "Сталася помилка."
+          }
+        });
+      } catch (err) {
+        console.error("Pannellum error:", err);
+      }
+    })();
+  </script>
+</body>
+</html>
