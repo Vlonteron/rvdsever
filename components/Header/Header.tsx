@@ -9,6 +9,7 @@ const navItems = [
   { href: '/', label: 'Головна' },
   { href: '/#about', label: 'Про нас' },
   { href: '/#products', label: 'Продукція' },
+  { href: '/#virtual-tour', label: '3D-тур' },
   { href: '/#suppliers', label: 'Постачальники' },
   { href: '/#contact', label: 'Контакти' },
 ];

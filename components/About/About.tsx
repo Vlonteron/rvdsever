@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import PanoramaViewer from '@/components/Panorama/PanoramaViewer';
 
 const services = [
   {
@@ -89,12 +90,19 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative h-96 bg-gradient-to-br from-primary-bg-light to-primary-bg-lighter rounded-lg overflow-hidden shadow-lg"
+            className="relative"
           >
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-primary text-6xl font-bold opacity-20">
-                ПРОМІМПЕКС
-              </div>
+            <PanoramaViewer
+              variant="compact"
+              title="Наше виробництво (360° тур)"
+              subtitle="м. Хмельницький, Вінницьке шосе, 1/3"
+            />
+            <div className="mt-3 flex items-center justify-between text-xs text-gray-500 px-1">
+              <span className="flex items-center space-x-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Інтерактивний 360° огляд виробництва</span>
+              </span>
+              <span className="text-gray-400">Google Street View</span>
             </div>
           </motion.div>
         </div>
