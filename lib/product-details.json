@@ -9,7 +9,12 @@
       "https://static.wixstatic.com/media/5add5e_e43f6bcd8e2942199291c5b8981411af~mv2.jpg/v1/fill/w_940,h_440,al_c,lg_2,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/%D0%A0%D0%92%D0%94%202_edited.jpg",
       "https://static.wixstatic.com/media/0fdef751204647a3bbd7eaa2827ed4f9.png/v1/fill/w_20,h_20,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/0fdef751204647a3bbd7eaa2827ed4f9.png"
     ],
-    "specifications": [],
+    "specifications": [
+      "Робочий тиск: до 420 бар",
+      "Температурний діапазон: від -40°C до +100°C",
+      "Діаметри: від 4 мм до 51 мм",
+      "Стандарти: DIN, SAE, ISO"
+    ],
     "features": [],
     "url": "https://rvdsever.wixsite.com/website/рукава-високого-тиску"
   },
@@ -76,8 +81,12 @@
     "title": "РУКАВА ДЛЯ МИЙОК ВИСОКОГО ТИСКУ",
     "description": "",
     "details": "",
-    "images": [],
-    "specifications": [],
+    "specifications": [
+      "Робочий тиск: до 500 бар",
+      "Температура води: до +150°C",
+      "Діаметри: 6 мм, 8 мм, 10 мм",
+      "Довжина: стандартна та на замовлення"
+    ],
     "features": [],
     "url": null
   },
